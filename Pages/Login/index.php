@@ -26,6 +26,7 @@
 				</div>
 
 				<input id="submitButton" type="submit" name="formSubmit" value="Login"><br>
+				
 				<a href="../Register/index.php">
 					<input id="submitButton" type="button" name="registerButton" value="Register">
 				</a>
@@ -34,8 +35,6 @@
 
 		<div>
 			<?php 
-
-			// https://www.geeksforgeeks.org/how-to-encrypt-and-decrypt-passwords-using-php/
 
 				if(isset($_POST['formSubmit']))
 				{
@@ -48,6 +47,7 @@
 					}
 				}
 
+				// Function to log into the account
 				function loginAccount($username, $password)
 				{
 					include("config.php");
@@ -62,21 +62,31 @@
 					$accountUsername = $username;
 					$accountPassword = $password;
 
+					// Prepare, bind, and execute the query
 					$loginQuery = $conn->prepare("SELECT password FROM $db_table WHERE username = ?");
 					$loginQuery->bind_param("s", $accountUsername);
 					$loginQuery->execute();
 
+					// Stores the results
 					$result = $loginQuery->get_result();
 					
+					// Gets the data from the results
 					$fetchedResult = $result->fetch_row();
 
 					if($result->num_rows)
 					{
+						// Stores the hashed password into a variable
 						$hashedPassword = $fetchedResult[0];
-						$verify = password_verify($accountPassword, $hashedPassword); // error here "Uncaught TypeError: password_verify(): Argument #2 ($hash) must be of type string"
+
+						// Verifies the password matches the stored encrypted password
+						$verify = password_verify($accountPassword, $hashedPassword);
+
+						// If the password matches, login
 						if($verify)
 						{
-							echo "<p class=\"success\">Login Successful!</p>";
+							echo "<p class=\"success\">Login Successful! Redirecting...</p>";
+							sleep(3);
+							header("Location: loggedin.html");
 						}
 						else
 						{

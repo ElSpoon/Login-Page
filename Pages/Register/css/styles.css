@@ -43,3 +43,7 @@ body {
 	cursor: pointer;
 	background-color: rgba(25, 120, 129, 0.8);
 }
+
+a {
+	font-size:  .7rem;
+}
