@@ -20,14 +20,14 @@
 					</p>
 
 					<p>
-							<label>Password<br>
+						<label>Password<br>
 						<input type="password" name="password" required></label>
 					</p>
 				</div>
 
 				<input id="submitButton" type="submit" name="formSubmit" value="Login"><br>
 				<a href="../Register/index.php">
-					<input id="submitButton" type="button" name="registerButton" value="Register">
+					input id="submitButton" type="button" name="registerButton" value="Register">
 				</a>
 			</form>
 		</div>
